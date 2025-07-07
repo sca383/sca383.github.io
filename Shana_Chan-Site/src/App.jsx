@@ -3,17 +3,17 @@ import SiteNavBar from './components/navbar'
 import './App.css'
 import Footer from './components/footer'
 import testImg from './assets/test.png'
+import Typewriter from './components/typewriter'
 
 function App() {
+    // console.log("APP ReNDERED");
 
   return (
     <div className="flex flex-col min-h-screen">
       <SiteNavBar />
-
-      <div id="home" style={{ backgroundImage: `url(${testImg})` }} className="w-full min-h-screen bg-center bg-cover flex items-center justify-center">
-        <h1>Shana Chan</h1>
+      <div className="bg-black h-screen flex items-center justify-center">
+        <Typewriter text="  Welcome to the website of Shana Chan" speed={200} />
       </div>
-
       <div id="about" className="w-full min-h-screen flex items-center justify-center">
         <h1>About Shana</h1>
       </div>
