@@ -1,16 +1,19 @@
 import { useState } from 'react'
 import SiteNavBar from './components/navbar'
-// import './App.css'
 import './index.css'; 
 import Footer from './components/footer'
 import TypewriterOverlay from './components/typewriter'
 import CardFlip from './components/card'
 import Timeline from './components/timeline'
 import 'swiper/css';
-import {Swiper, SwiperSlide} from 'swiper/react';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import Hangman from './components/SurpriseGame/Hangman/Hangman';
 
 
 function App() {
+  // For experience card flipping between pages
+  const [experiencePage, setExperiencePage] = useState(0); // 0: industry, 1: non-industry
   const [showTypeWriter, setShowTypeWriter] = useState(true);
 
   //experience section array
@@ -115,17 +118,43 @@ function App() {
             </div>
           }
           backContent={
-            <div id="experience" className="w-full h-full flex items-center justify-center">
-              <Swiper spaceBetween={50} slidesPerView={1}>
-                <SwiperSlide>
-                    <h2 className="text-xl font-bold mb-4 text-center">Industry Experience</h2>
-                    <Timeline experienceArr={industryExperiences} />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <h2 className="text-xl font-bold mb-4 text-center">Other Experience</h2>
-                    <Timeline experienceArr={nonIndustryExperiences} />
-                </SwiperSlide>
-              </Swiper>
+            <div id="experience" className="w-full h-full flex flex-col items-center justify-center">
+              <div className="w-full max-w-lg flex flex-col items-center">
+                <div className="flex items-center justify-between w-full mb-4">
+                  {/* TODO: import nicer looking arrow for buttons */}
+                  <button 
+                    onClick={e => {
+                      e.stopPropagation();
+                      setExperiencePage(prev => (prev === 0 ? 1 : 0));
+                    }}
+                    className="text-2xl px-4 py-2 rounded-full hover:bg-gray-200 transition"
+                    aria-label="Previous Experience"
+                  >
+                    &#8592;
+                  </button>
+                  <h2 className="text-xl font-bold text-center flex-1">
+                    {experiencePage === 0 ? 'Industry Experience' : 'Other Experience'}
+                  </h2>
+                  <button
+                    onClick={e => {
+                      e.stopPropagation();
+                      setExperiencePage(prev => (prev === 0 ? 1 : 0));
+                    }}
+                    className="text-2xl px-4 py-2 rounded-full hover:bg-gray-200 transition"
+                    aria-label="Next Experience"
+                  >
+                    &#8594;
+                  </button>
+                </div>
+                {experiencePage === 0 ? (
+                  <Timeline experienceArr={industryExperiences} />
+                ) : (
+                  <Timeline experienceArr={nonIndustryExperiences} />
+                )}
+                <div className="text-center mt-4 text-gray-500 text-sm">
+                  Click the arrows to flip between experience sections
+                </div>
+              </div>
             </div>
           }
           color={'#FFF89A'}
@@ -138,7 +167,7 @@ function App() {
           }
           backContent={
             <div id="surprise" className="w-full h-full flex items-center justify-center">
-              <p>Lorem locus text stuff</p>
+              <Hangman/>
             </div>
           }
           color={'#FFB7C5'}
