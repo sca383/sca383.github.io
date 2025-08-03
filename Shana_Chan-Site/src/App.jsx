@@ -45,14 +45,14 @@ function App() {
     {
       title: "Math and Reading Instructor Assistant",
       company: "Kumon",
-      duration: "February 2025 - Present",
+      duration: "August 2021 - Present",
       description:"",
       type:"nonindustry",
     },
     {
       title: "Club Secretary",
       company: "AWANA",
-      duration: "February 2025 - Present",
+      duration: "September 2017 - September 2024",
       description:"",
       type:"nonindustry",
 
@@ -76,24 +76,24 @@ function App() {
 
   // show the main content
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="w-full flex flex-col items-center px-4 sm:px-6 lg:px-8 mx-auto">
       <SiteNavBar />
 
       {/* Cards Section */}
-      <div className="flex flex-col justify-center items-center flex-1 gap-24 py-16">
+      <div className="w-full flex flex-col items-center">
         <CardFlip
           frontContent={
-            <div id="about" className="w-full h-full flex items-center justify-center">
+            <div id="about" className="w-full flex flex-col md:flex-row items-center justify-center gap-6 p-4">
               <h1>About</h1>
             </div>
           }
           backContent={
-            <div id="about" className="w-full h-full flex flex-row items-center justify-center gap-10 p-4">
-              <div id="about-img" className="flex-shrink-0">
-                <img src="/assets/AboutImg.jpg" alt="Image of Shana" className="w-40 h-40 object-cover rounded-xl shadow-lg" />
+            <div id="about" className="w-full h-full flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-10 p-2 sm:p-4">
+              <div id="about-img" className="flex-shrink-0 mb-4 md:mb-0">
+                <img src="/assets/AboutImg.jpg" alt="Image of Shana" className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-xl shadow-lg object-cover" />
               </div>
-              <div id="about-text" className="text-left pl-50">
-                <p className="font-sans md:font-serif ...">
+              <div id="about-text" className="text-left w-full md:flex-1">
+                <p className="font-sans md:font-serif text-sm sm:text-base md:text-lg leading-relaxed">
                   Hi! I'm Shana. <br/>
                   I'm going into my 4th year Computing Science major at Simon Fraser University.<br/>
                   How did I get here? Well, as a lost and confused student fresh out of high school, I unexpectedly stumbled into computer science, a step that 
@@ -113,12 +113,12 @@ function App() {
         />
         <CardFlip
           frontContent={
-            <div id="experience" className="w-full h-full flex items-center justify-center">
+            <div id="experience" className="w-full flex items-center justify-center">
               <h1>Experience</h1>
             </div>
           }
           backContent={
-            <div id="experience" className="w-full h-full flex flex-col items-center justify-center">
+            <div id="experience" className="w-full flex flex-col items-center justify-center">
               <div className="w-full max-w-lg flex flex-col items-center">
                 <div className="flex items-center justify-between w-full mb-4">
                   {/* TODO: import nicer looking arrow for buttons */}
@@ -161,12 +161,12 @@ function App() {
         />
         <CardFlip
           frontContent={
-            <div id="surprise" className="w-full h-full flex items-center justify-center">
+            <div id="surprise" className="w-full flex items-center justify-center">
               <h1>Surprise</h1>
             </div>
           }
           backContent={
-            <div id="surprise" className="w-full h-full flex items-center justify-center">
+            <div id="surprise" className="w-full flex items-center justify-center">
               <Hangman/>
             </div>
           }
