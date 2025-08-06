@@ -1,11 +1,13 @@
 /* Card.module.css */
 
 .cardIndiv {
-  width: 1500px;
-  height: 700px;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 15 / 7;
   perspective: 1200px;
   cursor: pointer;
   overflow: hidden;
+
 }
 
 .cardInner {
@@ -33,6 +35,7 @@
   justify-content: center;
   font-size: 1.2rem;
   background-color: white;
+  overflow-y: auto; /* Add this line */
 }
 
 .back {

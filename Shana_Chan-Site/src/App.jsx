@@ -94,15 +94,15 @@ function App() {
               </div>
               <div id="about-text" className="text-left w-full md:flex-1">
                 <p className="font-sans md:font-serif text-sm sm:text-base md:text-lg leading-relaxed">
-                  Hi! I'm Shana. <br/>
-                  I'm going into my 4th year Computing Science major at Simon Fraser University.<br/>
+                  Hi! I'm Shana. <br/><br/>
+                  I'm going into my 4th year in the Computing Science program at Simon Fraser University.<br/>
                   How did I get here? Well, as a lost and confused student fresh out of high school, I unexpectedly stumbled into computer science, a step that 
                   launched me into an incredible journey of creativity, logic, and problem-solving. <br/>
                   What started as light curiosity turned into a passion for building things that are both functional and meaningful.
                   <br/>
                   When I'm not pursuing personal coding projects, or studying, you can find me 
                   making chill improvs at the piano, reading a book, playing badminton, or touching grass.
-                  <br/>
+                  <br/><br/>
                   If you're looking for someone eager to learn, create, and make an impact, let's chat!
                   In the meantime, feel free to explore this site!
                 </p>

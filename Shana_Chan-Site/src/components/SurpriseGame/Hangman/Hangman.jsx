@@ -2,7 +2,7 @@ import { use, useEffect } from "react";
 import { useState } from "react";
 import { getWordDisplay, isGameLost, isGameWon, getRandomWord } from "./hangmanLogic";
 import { db, auth } from "../../../firebase/config";
-import { doc, getDocs, getDoc, setDoc, collection, query, orderBy, limit} from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 
 function Hangman(){
     const [word, setWord] = useState("");
@@ -17,16 +17,27 @@ function Hangman(){
     //game winning and losing vars
     const won = isGameWon(word, guessedLetters);
     const lost = isGameLost(word, guessedLetters);
-    const fetchHighestScore = async()=>{
-        const scoresRef = collection(db, "hangmanScores");
-        const topScoreQuery = query(scoresRef, orderBy("score", "desc"), limit(1));
 
-        const snapshot = await getDocs(topScoreQuery);
-        if (!snapshot.empty){
+    const fetchHighestScore = async () => {
+        try {
+            const scoresRef = collection(db, "hangmanScores");
+            const topScoreQuery = query(scoresRef, orderBy("score", "desc"), limit(1));
+
+            const snapshot = await getDocs(topScoreQuery);
+            console.log("Top score query snapshot:", snapshot.docs);
+
+            if (!snapshot.empty) {
             const topDoc = snapshot.docs[0];
-            setHighestScore(topDoc.data().score);
+            const topScore = topDoc.data().score;
+            console.log("Top score:", topScore);
+            setHighestScore(topScore);
+            } else {
+            console.log("No scores found");
+            }
+        } catch (error) {
+            console.error("Error fetching highest score:", error);
         }
-    }
+    };
 
     //generating new random word 
     useEffect(()=>{
@@ -34,11 +45,12 @@ function Hangman(){
         setWord(newWord);
     }, []);
 
+    //separate useEffect for on reload updates
     useEffect(()=>{
         fetchHighestScore();
-    }, [won, lost]);
+    }, []);
 
-    //firebase logic for fetching user id for the score
+    //fetching user id for the score
     useEffect(()=>{
         const unsubscribe = auth.onAuthStateChanged(async (user) =>{
             if (user){
@@ -53,15 +65,20 @@ function Hangman(){
         return ()=>unsubscribe();
     }, []);
 
+    //update highscore after a win
     useEffect(()=>{
         if (won && uid){
-            const newScore = score + 1;
-            setScore(newScore);
+            const updateScore = async ()=>{
+                const newScore = score + 1;
+                setScore(newScore);
 
-            const userDoc = doc(db, "hangmanScores", uid);
-            setDoc(userDoc, {score: newScore}, {merge: true});
-        }
-    }, [won]);
+                const userDoc = doc(db, "hangmanScores", uid);
+                await setDoc(userDoc, {score: newScore}, {merge: true});
+                await fetchHighestScore()
+            };
+           updateScore();
+        };
+    }, [won, uid]);
 
     const handleReset = ()=>{
         setWord(getRandomWord());
@@ -74,9 +91,9 @@ function Hangman(){
         <div onClick={e=>e.stopPropagation()}>
             <h2>Hangman Game</h2>
             {highestScore !== null && (
-                <h3 className="font-semibold text-green-700">Highest score: {highestScore}</h3>
+                <h3 className="font-semibold text-green">Highest score: {highestScore}</h3> 
             )}
-            <h3 className="font-semibold">Your score: {score}</h3>
+            <h3 className="font-semibold">Your score: {score}</h3> 
             <p>Number of guesses: {numGuessesLeft}</p>
             <p>{getWordDisplay(word, guessedLetters)}</p>
             <br/><br/>
