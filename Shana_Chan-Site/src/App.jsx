@@ -28,7 +28,7 @@ function App() {
     {
       title: "Web Developer Coordinator",
       company: "Enactus SFU",
-      duration: "February 2025 - Present",
+      duration: "February 2025 - August 2025",
       description:"",
       type:"industry",
     },
