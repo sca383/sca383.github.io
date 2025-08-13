@@ -80,7 +80,7 @@ function App() {
       <SiteNavBar />
 
       {/* Cards Section */}
-      <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-center"> 
         <CardFlip
           frontContent={
             <div id="about" className="w-full flex flex-col md:flex-row items-center justify-center gap-6 p-4">
